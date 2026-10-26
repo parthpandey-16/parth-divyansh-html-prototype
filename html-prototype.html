@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marine Collagen PDP Prototype</title>
+<meta name="description" content="Concept CRO prototype of an improved Korean Marine Collagen Peptides product page. Inter IIT Product Management submission. Not a live store.">
+<style>
+:root{
+  --bg:#fbfaf7; --surface:#ffffff; --ink:#1d2321; --muted:#5d6763; --line:#e4e1da;
+  --brand:#12406f; --brand-ink:#ffffff; --brand-soft:#e4edf7; --accent:#c8733c; --accent-soft:#fbeee4;
+  --star:#e0a020; --ok:#1d7a46; --note:#6a3fd1; --note-soft:#f1ecff;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+a{color:var(--brand)}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:1160px;margin:0 auto;padding:0 16px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+.demo{background:#20262a;color:#e9ecef;font-size:13px}
+.demo .wrap{display:flex;gap:12px;align-items:center;justify-content:space-between;padding-top:8px;padding-bottom:8px;flex-wrap:wrap}
+.toggle{display:inline-flex;align-items:center;gap:8px;background:var(--note);color:#fff;border:0;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600}
+.toggle[aria-pressed="true"]{background:#fff;color:var(--note)}
+
+.announce{background:var(--brand);color:var(--brand-ink);text-align:center;font-size:14px;padding:8px 16px}
+header.site{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:35}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:8px}
+.logo{font-weight:800;color:var(--brand);text-decoration:none;font-size:18px;white-space:nowrap}
+.logo span{font-weight:400;color:var(--muted);font-size:12px}
+.hdr-actions{display:flex;gap:8px;align-items:center}
+.pillbtn{background:none;border:1px solid var(--line);border-radius:999px;padding:6px 12px;color:var(--ink);white-space:nowrap;font-size:14px}
+.aibtn{display:inline-flex;align-items:center;gap:6px;background:var(--brand-soft);border-color:var(--brand);color:var(--brand);font-weight:700}
+.aibtn .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);display:none}
+.aibtn.has-draft .dot{display:inline-block}
+.count{display:inline-block;min-width:20px;text-align:center;background:var(--accent);color:#fff;border-radius:999px;font-size:12px;margin-left:6px;padding:0 6px}
+@media(max-width:420px){.aibtn .lbl-long{display:none}.logo span{display:none}}
+@media(min-width:421px){.aibtn .lbl-short{display:none}}
+
+.pdp{display:grid;grid-template-columns:minmax(0,1fr);gap:24px;padding:16px 0 32px}
+@media(min-width:900px){.pdp{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:40px;padding-top:28px}.buy{position:sticky;top:76px;align-self:start}}
+.crumbs{font-size:13px;color:var(--muted);margin:12px 0 0}
+
+.gallery{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.hero{aspect-ratio:1/1;border-radius:10px;background:radial-gradient(circle at 50% 40%,#eaf1f9,#d3e1f0);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.hero svg{width:58%;height:auto}
+@media(max-width:899px){.hero{aspect-ratio:16/10}.hero svg{width:30%}}
+.hero .tag{position:absolute;left:12px;top:12px;background:#fff;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:600;color:var(--brand)}
+
+h1{font-size:26px;line-height:1.2;margin:4px 0 6px}
+@media(min-width:900px){h1{font-size:32px}}
+.rating{display:flex;align-items:center;gap:8px;font-size:14px;flex-wrap:wrap}
+.stars{color:var(--star);letter-spacing:1px}
+.valueprop{color:var(--muted);margin:10px 0 14px}
+
+.benefits{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 6px}
+@media(min-width:560px){.benefits{grid-template-columns:repeat(3,1fr)}}
+.benefit{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:13px;line-height:1.35}
+.benefit b{display:block;font-size:15px;color:var(--brand)}
+.benefit.stat b{font-size:20px}
+.fine{font-size:12px;color:var(--muted);margin:6px 0 0}
+
+fieldset{border:0;margin:16px 0 12px;padding:0;min-width:0}
+legend{font-weight:700;margin-bottom:8px}
+.packs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pack{position:relative;display:block;border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:12px;cursor:pointer}
+.pack input{position:absolute;opacity:0}
+.pack:has(input:checked){border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+.pack:has(input:focus-visible){outline:2px solid var(--brand);outline-offset:2px}
+.pack .n{font-weight:700}
+.pack .pp{font-size:20px;font-weight:800;margin-top:2px}
+.pack .ps{font-size:13px;color:var(--ok);font-weight:600}
+.pack .gift{font-size:12px;color:#7a3e14;margin-top:4px;min-height:18px}
+
+.pricebox{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:4px 0 12px}
+.pricebox .row{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.big{font-size:28px;font-weight:800}
+.mrp{color:var(--muted);text-decoration:line-through;font-size:15px}
+.save{color:var(--ok);font-weight:700;font-size:14px}
+
+.ladder{background:var(--accent-soft);border-radius:12px;padding:12px 14px;margin:0 0 12px}
+.ladder .head{font-weight:700;color:#7a3e14;font-size:14px;margin-bottom:8px}
+.track{position:relative;height:8px;background:#f1d9c6;border-radius:99px;margin:6px 0 10px}
+.track i{position:absolute;left:0;top:0;bottom:0;background:var(--accent);border-radius:99px;transition:width .3s}
+.tiers{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.tiers li{display:flex;gap:8px;align-items:flex-start;font-size:13px;line-height:1.35}
+.tiers li .ck{flex:none;width:18px;height:18px;border-radius:50%;border:1.5px solid #d9b597;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;margin-top:1px}
+.tiers li.on .ck{background:var(--accent);border-color:var(--accent)}
+.tiers li.on{color:#4a2408;font-weight:600}
+.tiers small{display:block;font-weight:400;color:var(--muted)}
+
+.cta{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:420px){.cta{grid-template-columns:1.4fr 1fr}}
+.btn{border:0;border-radius:12px;padding:14px 16px;font-weight:700;font-size:16px}
+.btn-primary{background:var(--brand);color:var(--brand-ink)}
+.btn-primary:hover{filter:brightness(1.08)}
+.btn-ghost{background:var(--surface);color:var(--brand);border:1.5px solid var(--brand)}
+
+.askbox{margin-top:12px;border:1px dashed var(--brand);border-radius:12px;padding:10px 12px;background:var(--brand-soft)}
+.askbox p{margin:0 0 8px;font-size:14px;color:var(--brand);font-weight:600}
+.askrow{display:flex;gap:8px}
+.askrow input{flex:1;min-width:0;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;background:#fff}
+.askrow button{border:0;background:var(--brand);color:#fff;border-radius:10px;padding:0 14px;font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chips button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 10px;font-size:12px;color:var(--ink)}
+
+.assure{margin-top:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
+.pin{display:flex;gap:8px;padding:12px}
+.pin input{flex:1;min-width:0;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit}
+.pin button{border:0;background:var(--ink);color:#fff;border-radius:10px;padding:0 14px;font-weight:600}
+.pinres{padding:0 12px 10px;font-size:14px;color:var(--ok)}
+.pinres:empty{display:none}
+.pinres.err{color:#b3261e}
+.assure ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+.assure li{padding:10px 12px;font-size:13px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.assure li:nth-child(2n){border-right:0}
+.assure li b{display:block;font-size:14px}
+
+section.block{padding:36px 0;border-top:1px solid var(--line)}
+h2{font-size:22px;margin:0 0 6px}
+.lede{color:var(--muted);margin:0 0 18px;max-width:680px}
+.grid3{display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:720px){.grid3{grid-template-columns:repeat(3,1fr)}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.card h3{margin:0 0 6px;font-size:16px}
+.card p{margin:0;color:var(--muted);font-size:14px}
+.quote{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px}
+.quote p{margin:0 0 6px}
+.quote .who{font-size:12px;color:var(--muted)}
+details{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0 14px;margin-bottom:8px}
+summary{cursor:pointer;padding:14px 0;font-weight:600;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";float:right;color:var(--muted)}
+details[open] summary::after{content:"−"}
+details p{margin:0 0 14px;color:var(--muted)}
+footer{padding:30px 0 120px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+
+.sticky{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(0,0,0,.06);padding:10px 16px;display:flex;gap:12px;align-items:center;transform:translateY(110%);transition:transform .25s;z-index:30}
+.sticky.show{transform:none}
+.sticky .info{flex:1;min-width:0;font-size:13px;line-height:1.3}
+.sticky .info b{font-size:16px;display:block}
+.sticky .btn{padding:12px 18px;white-space:nowrap}
+@media(min-width:900px){.sticky{display:none}}
+
+.scrim{position:fixed;inset:0;background:rgba(10,15,12,.45);opacity:0;pointer-events:none;transition:opacity .2s;z-index:40}
+.scrim.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,100%);background:var(--bg);z-index:50;transform:translateX(105%);transition:transform .25s;display:flex;flex-direction:column}
+.drawer.open{transform:none}
+.drawer > header{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--surface)}
+.drawer .body{flex:1;overflow:auto;padding:16px}
+.drawer .foot{padding:14px 16px;border-top:1px solid var(--line);background:var(--surface)}
+.x{background:none;border:0;font-size:24px;line-height:1;color:var(--muted)}
+.line{display:flex;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:8px}
+.line .thumb{width:56px;height:56px;border-radius:8px;background:var(--brand-soft);flex:none;display:flex;align-items:center;justify-content:center;font-size:22px}
+.line.giftline .thumb{background:var(--accent-soft)}
+.sum{display:flex;justify-content:space-between;font-size:14px;margin:6px 0;gap:8px}
+.sum.total{font-size:17px;font-weight:800;border-top:1px dashed var(--line);padding-top:8px;margin-top:10px}
+.okmsg{background:#e8f5ec;color:var(--ok);border-radius:10px;padding:10px 12px;font-size:13px;margin:10px 0}
+.nudge{background:var(--accent-soft);color:#7a3e14;border-radius:10px;padding:10px 12px;font-size:13px;margin:10px 0}
+.empty{color:var(--muted);text-align:center;padding:40px 0}
+
+/* Expert AI panel */
+.ai{z-index:55}
+.ai .who{display:flex;gap:10px;align-items:center}
+.ai .avatar{width:34px;height:34px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}
+.ctx{font-size:12px;background:var(--brand-soft);color:var(--brand);border-radius:999px;padding:3px 10px;display:inline-block;margin-bottom:10px}
+.msgs{display:flex;flex-direction:column;gap:8px}
+.msg{max-width:88%;padding:10px 12px;border-radius:14px;font-size:14px;line-height:1.45}
+.msg.bot{background:var(--surface);border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:4px}
+.msg.me{background:var(--brand);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.msg .src{display:block;font-size:11px;color:var(--muted);margin-top:4px}
+.compose{display:flex;gap:8px;align-items:flex-end}
+.compose textarea{flex:1;min-width:0;resize:none;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font:inherit;min-height:44px;max-height:120px}
+.compose button{border:0;background:var(--brand);color:#fff;border-radius:12px;padding:11px 14px;font-weight:700}
+.draftnote{font-size:12px;color:var(--muted);margin-top:6px;min-height:16px}
+
+.modal{position:fixed;inset:0;display:flex;align-items:flex-end;justify-content:center;z-index:60;pointer-events:none}
+@media(min-width:700px){.modal{align-items:center}}
+.modal .panel{background:var(--bg);width:min(560px,100%);max-height:92vh;overflow:auto;border-radius:18px 18px 0 0;padding:18px 16px 22px;transform:translateY(110%);transition:transform .25s;pointer-events:auto;visibility:hidden}
+@media(min-width:700px){.modal .panel{border-radius:18px;transform:translateY(30px);opacity:0}}
+.modal.open .panel{transform:none;opacity:1;visibility:visible}
+.steps{display:flex;gap:6px;margin:6px 0 14px;font-size:12px;color:var(--muted)}
+.steps span{flex:1;border-top:3px solid var(--line);padding-top:4px}
+.steps span.on{border-color:var(--brand);color:var(--brand);font-weight:700}
+.field{display:grid;gap:4px;margin-bottom:10px;font-size:14px}
+.field input{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;background:var(--surface)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.paylist{display:grid;gap:8px;margin-bottom:12px}
+.paylist label{display:flex;gap:10px;align-items:flex-start;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface);cursor:pointer}
+.paylist label:has(input:checked){border-color:var(--brand);background:var(--brand-soft)}
+.paylist small{display:block;color:var(--muted)}
+
+.note{display:none;border:1.5px dashed var(--note);background:var(--note-soft);color:#2e1a6b;border-radius:10px;padding:8px 10px;font-size:13px;margin:8px 0;line-height:1.4}
+.note b{color:var(--note)}
+.note .tag{display:inline-block;background:var(--note);color:#fff;border-radius:6px;padding:0 6px;font-size:11px;font-weight:700;margin-right:4px}
+body.notes .note{display:block}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="demo" role="note">
+  <div class="wrap">
+    <span>Concept prototype for an Inter IIT Product Management submission. It is not a live store and is not affiliated with the brand. Prices are from the live page (Oct 2026). Gifts, delivery, the assistant's answers and checkout are simulated.</span>
+    <button class="toggle" id="notesToggle" aria-pressed="false">Show CRO notes</button>
+  </div>
+</div>
+
+<div class="announce">Free gifts that go with your collagen: a shaker from ₹1,999, a flavour sachet set from ₹3,999, and a doctor consultation from ₹5,999</div>
+
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="#">wellbeing·nutrition <span>(concept)</span></a>
+    <div class="hdr-actions">
+      <button class="pillbtn aibtn" id="aiBtn" aria-expanded="false" aria-controls="aiPanel"><span class="dot" aria-hidden="true"></span><span class="lbl-long">Ask Wellbeing Expert</span><span class="lbl-short">Ask Expert</span></button>
+      <button class="pillbtn" id="openCart" aria-label="Open cart">Cart<span class="count" id="cartCount">0</span></button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="note"><span class="tag">I2</span><span class="tag">F1</span><b>The Expert assistant is always one tap away.</b> It sits in the top-right of a sticky header and opens or closes like a toggle. A dot on the button shows when you have an unsent draft, so closing the assistant to look at something else never loses what you typed.</div>
+
+  <p class="crumbs">Home / Collagen / Marine Collagen</p>
+
+  <div class="pdp">
+    <div>
+      <div class="gallery">
+        <div class="hero">
+          <span class="tag">Unflavoured · 200 g</span>
+          <svg viewBox="0 0 120 150" aria-hidden="true">
+            <rect x="22" y="10" width="76" height="20" rx="6" fill="#12406f"/>
+            <rect x="14" y="28" width="92" height="112" rx="16" fill="#ffffff" stroke="#cbd9ea" stroke-width="2"/>
+            <rect x="14" y="62" width="92" height="46" fill="#12406f"/>
+            <text x="60" y="82" fill="#fff" font-size="10" font-weight="700" text-anchor="middle" font-family="system-ui">MARINE</text>
+            <text x="60" y="96" fill="#fff" font-size="10" font-weight="700" text-anchor="middle" font-family="system-ui">COLLAGEN</text>
+            <text x="60" y="124" fill="#12406f" font-size="7" text-anchor="middle" font-family="system-ui">8 g per serving</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="buy" id="buybox">
+      <h1>Pure Korean Marine Collagen Peptides</h1>
+      <div class="rating"><span class="stars" aria-hidden="true">★★★★★</span><b>4.74</b><a href="#reviews">571 reviews</a></div>
+      <p class="valueprop">8 g of hydrolysed Type I and III marine collagen per serving. It is unflavoured and dissolves in water, coffee or smoothies.</p>
+
+      <div class="benefits" aria-label="Key benefits">
+        <div class="benefit stat"><b>35%</b>reduction in wrinkles²</div>
+        <div class="benefit"><b>Firmer skin</b>Better firmness and elasticity²</div>
+        <div class="benefit"><b>Hydration</b>Supports skin hydration and texture</div>
+        <div class="benefit"><b>Hair and nails</b>Supports stronger hair and nails</div>
+        <div class="benefit"><b>Joints</b>Supports joint health⁴</div>
+        <div class="benefit"><b>Tested</b>Checked for heavy metals and mercury</div>
+      </div>
+      <p class="fine">²⁴ The claims are based on studies of the ingredient, as the brand's disclaimer says.</p>
+      <div class="note"><span class="tag">I4</span><span class="tag">F1</span><b>Benefits shown in balance.</b> On the live page, one large "35% reduction in wrinkles" box stands alone, which looks out of proportion. Here it is one tile among the other benefits, all the same size, with the brand's footnotes kept.</div>
+
+      <fieldset>
+        <legend>Choose your pack</legend>
+        <div class="packs" id="packs"></div>
+      </fieldset>
+
+      <div class="pricebox" aria-live="polite">
+        <div class="row"><span><span class="big" id="price">₹1,745</span> <span class="mrp" id="mrp">₹1,799</span></span><span class="save" id="save">You save ₹54</span></div>
+        <div class="row" style="margin-top:2px"><span style="font-size:13px;color:var(--muted)">MRP inclusive of all taxes</span><span id="member" style="font-size:13px;color:var(--muted)"></span></div>
+      </div>
+
+      <div class="ladder" id="ladder" aria-live="polite"></div>
+      <div class="note"><span class="tag">I1</span><span class="tag">F2</span><b>Gifts that suit collagen.</b> The live cart's free-gift milestone pushes Apple Cider Vinegar and Daily Greens, which are weight-loss and greens products, not skincare. Here every pack size unlocks a gift that fits a collagen routine: a shaker (₹1,999), a flavour sachet set (₹3,999) and a 4-week consultation with an assigned doctor (₹5,999). No pack is labelled "recommended". The shopper just sees what their choice unlocks. <i>Assumption: gifts stack, and the thresholds need checking against margins.</i></div>
+
+      <div class="cta">
+        <button class="btn btn-primary" id="addBtn">Add to cart</button>
+        <button class="btn btn-ghost" id="buyNow">Buy now</button>
+      </div>
+
+      <div class="askbox">
+        <p>Have a question about this product?</p>
+        <form class="askrow" id="askForm">
+          <label class="sr" for="askInput">Ask about this product</label>
+          <input id="askInput" placeholder="e.g. Can I mix it in hot coffee?">
+          <button type="submit">Ask</button>
+        </form>
+        <div class="chips">
+          <button type="button" data-q="Does it taste fishy?">Does it taste fishy?</button>
+          <button type="button" data-q="How do I take it?">How do I take it?</button>
+          <button type="button" data-q="Is it vegetarian?">Is it vegetarian?</button>
+        </div>
+      </div>
+      <div class="note"><span class="tag">I5</span><span class="tag">F1</span><b>One assistant, not two.</b> On the live page, "Ask about this product" (below Buy now) and the Wellbeing Expert are separate, and questions asked in one don't carry over to the other. Here this box opens the same Expert assistant with the product as context, so your questions and answers stay in one conversation.</div>
+
+      <div class="assure">
+        <form class="pin" id="pinForm" novalidate>
+          <label class="sr" for="pin">Delivery pincode</label>
+          <input id="pin" inputmode="numeric" maxlength="6" placeholder="Enter pincode to see delivery date" autocomplete="postal-code">
+          <button type="submit">Check</button>
+        </form>
+        <div class="pinres" id="pinRes" aria-live="polite"></div>
+        <ul>
+          <li><b>Arrives by</b><span id="etaTxt">Enter your pincode</span></li>
+          <li><b>Shipping</b><span id="shipTxt">Shown before you pay</span></li>
+          <li><b>Cash on delivery</b>UPI, cards and COD</li>
+          <li><b>Returns</b><a href="#returns">Read the policy summary</a></li>
+        </ul>
+      </div>
+      <div class="note"><span class="tag">I3</span><span class="tag">F3</span><b>Delivery, cost, COD and returns at the button.</b> The live page has no arrival date, shipping cost, COD option or return terms, only footer links. Baymard (2024) found 48% of US shoppers who abandoned checkout did so because of extra costs. In India about 45.6% of e-commerce orders were COD in FY24 (Shopflo, via YourStory). <i>The courier's pincode data and the brand's policies would fill in these values.</i></div>
+    </div>
+  </div>
+
+  <section class="block">
+    <h2>What's inside</h2>
+    <div class="grid3">
+      <div class="card"><h3>Ingredient</h3><p>100% hydrolysed marine collagen peptides (Type I and III), made from wild-caught deep-sea fish. This product is non-vegetarian.</p></div>
+      <div class="card"><h3>How to take it</h3><p>Mix one serving with 250 ml of water, coffee, a smoothie or oats, and take it every day.</p></div>
+      <div class="card"><h3>Lab reports</h3><p>Reports for heavy metals, microbes, contaminant residue, FSSAI and USFDA are ready to download.</p></div>
+    </div>
+  </section>
+
+  <section class="block" id="reviews">
+    <h2>What customers say</h2>
+    <p class="lede">4.74 out of 5 from 571 reviews</p>
+    <div class="quote"><p>"No fishy taste"</p><div class="who">Review headline on the live page</div></div>
+    <div class="quote"><p>"By far the best marine collagen I have tasted."</p><div class="who">Review on the live page</div></div>
+  </section>
+
+  <section class="block" id="returns">
+    <h2>Delivery and returns</h2>
+    <details><summary>When will my order arrive?</summary><p>Enter your pincode near the Add to cart button to see the estimated delivery date before you buy.</p></details>
+    <details><summary>Can I pay cash on delivery?</summary><p>Yes, where the courier supports COD for your pincode.</p></details>
+    <details><summary>What is the return policy?</summary><p>[A short summary of the brand's Refunds &amp; Cancellation policy goes here, so you don't have to leave the page.]</p></details>
+    <details><summary>How does the free doctor consultation work?</summary><p>With orders of ₹5,999 or more, you're matched with one of the brand's doctors for a 4-week consultation. You talk to the same doctor each time and can ask about your routine and results.</p></details>
+  </section>
+</main>
+
+<footer><div class="wrap">Concept prototype made for an Inter IIT Product Management problem statement. Product facts and prices come from the public product page (Oct 2026). Gifts, delivery dates, the assistant's answers and checkout are simulated, and no real orders are placed.</div></footer>
+
+<div class="sticky" id="sticky" aria-hidden="true">
+  <div class="info"><span id="stPack">Pack of 1</span><b id="stPrice">₹1,745</b></div>
+  <button class="btn btn-primary" id="stAdd">Add to cart</button>
+</div>
+
+<div class="scrim" id="scrim"></div>
+
+<aside class="drawer" id="drawer" aria-label="Cart" aria-hidden="true">
+  <header><b>Your cart</b><button class="x" data-close aria-label="Close cart">×</button></header>
+  <div class="body" id="cartBody"></div>
+  <div class="foot" id="cartFoot"></div>
+</aside>
+
+<aside class="drawer ai" id="aiPanel" aria-label="Wellbeing Expert assistant" aria-hidden="true">
+  <header><div class="who"><div class="avatar">WE</div><div><b>Wellbeing Expert</b><div style="font-size:12px;color:var(--muted)">AI assistant (demo answers)</div></div></div><button class="x" data-close aria-label="Close assistant">×</button></header>
+  <div class="body"><span class="ctx">Context: Pure Korean Marine Collagen Peptides</span><div class="msgs" id="msgs"></div></div>
+  <div class="foot">
+    <form class="compose" id="composeForm">
+      <label class="sr" for="draft">Message</label>
+      <textarea id="draft" rows="1" placeholder="Type your question…"></textarea>
+      <button type="submit">Send</button>
+    </form>
+    <div class="draftnote" id="draftNote"></div>
+    <div class="note"><span class="tag">I2</span><b>Drafts are kept.</b> Close this panel halfway through typing and your draft is still here when you reopen it, even after a page reload. On the live site the draft is lost.</div>
+  </div>
+</aside>
+
+<div class="modal" id="modal" aria-hidden="true"><div class="panel" role="dialog" aria-label="Checkout" id="panel"></div></div>
+
+<script>
+const PACKS=[{n:1,price:1745,mrp:1799},{n:2,price:3418,mrp:3598},{n:3,price:5019,mrp:5397},{n:4,price:6476,mrp:7196}];
+const TIERS=[
+  {at:1999,name:'Free shaker',icon:'🥤',desc:'A Wellbeing shaker for your daily mix'},
+  {at:3999,name:'Flavour sachet gift set',icon:'🎁',desc:'Try the other collagen flavours'},
+  {at:5999,name:'Free 4-week doctor consultation',icon:'🩺',desc:'One assigned doctor for your course'}
+];
+const state={pack:1,cart:null,pin:null,eta:null,chat:[],ctxShown:false};
+const fmt=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+const $=id=>document.getElementById(id);
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
+
+const unlocked=total=>TIERS.filter(t=>total>=t.at);
+const nextTier=total=>TIERS.find(t=>total<t.at);
+
+function renderPacks(){
+  $('packs').innerHTML=PACKS.map(p=>{
+    const u=unlocked(p.price);
+    const g=u.length?u.map(t=>t.icon).join(' ')+' '+u.length+' gift'+(u.length>1?'s':''):'';
+    return `<label class="pack"><input type="radio" name="pack" value="${p.n}" ${p.n===state.pack?'checked':''}>
+      <div class="n">Pack of ${p.n}</div><div class="pp">${fmt(p.price)}</div>
+      <div class="ps">${Math.round((1-p.price/p.mrp)*100)}% off MRP</div><div class="gift">${g}</div></label>`;
+  }).join('');
+}
+function ladderHTML(total,compact){
+  const max=TIERS[TIERS.length-1].at, pct=Math.min(100,total/max*100), nx=nextTier(total);
+  const head=nx?`${unlocked(total).length?'Unlocked: '+unlocked(total).map(t=>t.name.toLowerCase()).join(', ')+'. ':''}Add ${fmt(nx.at-total)} more for a ${nx.name.toLowerCase().replace('free ','')}.`:'All 3 gifts unlocked with this order.';
+  return `<div class="head">${head}</div><div class="track"><i style="width:${pct}%"></i></div>
+    <ul class="tiers">${TIERS.map(t=>`<li class="${total>=t.at?'on':''}"><span class="ck">${total>=t.at?'✓':''}</span><span>${t.icon} ${t.name} · from ${fmt(t.at)}${compact?'':`<small>${t.desc}</small>`}</span></li>`).join('')}</ul>`;
+}
+function render(){
+  renderPacks();
+  const p=PACKS[state.pack-1];
+  $('member').innerHTML=p.n===1?'Members pay <b>₹1,658</b> · <a href="#">Join</a>':'Members save more · <a href="#">Join</a>';$('price').textContent=fmt(p.price);$('mrp').textContent=fmt(p.mrp);$('save').textContent='You save '+fmt(p.mrp-p.price);
+  $('ladder').innerHTML=ladderHTML(p.price);
+  $('stPack').textContent=`Pack of ${p.n}`+(unlocked(p.price).length?` · ${unlocked(p.price).length} free gift${unlocked(p.price).length>1?'s':''}`:'');
+  $('stPrice').textContent=fmt(p.price);
+}
+document.addEventListener('change',e=>{if(e.target.name==='pack'){state.pack=+e.target.value;render()}});
+
+/* pincode (simulated) */
+function etaFor(){const d=new Date();d.setDate(d.getDate()+4);return d.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'})}
+$('pinForm').addEventListener('submit',e=>{
+  e.preventDefault();const v=$('pin').value.trim(),r=$('pinRes');
+  if(!/^[1-9]\d{5}$/.test(v)){r.className='pinres err';r.textContent='Please enter a valid 6-digit pincode.';return}
+  state.pin=v;state.eta=etaFor();r.className='pinres';r.textContent=`✓ Delivers to ${v}. COD available. (demo)`;
+  $('etaTxt').textContent=state.eta;$('shipTxt').textContent='₹0 for '+v+' (demo)';
+});
+
+/* notes */
+$('notesToggle').addEventListener('click',e=>{const on=document.body.classList.toggle('notes');e.currentTarget.setAttribute('aria-pressed',on);e.currentTarget.textContent=on?'Hide CRO notes':'Show CRO notes'});
+
+/* sticky */
+new IntersectionObserver(([en])=>{$('sticky').classList.toggle('show',!en.isIntersecting&&en.boundingClientRect.top<0)}).observe($('addBtn'));
+
+/* panels */
+function openPanel(id){closeAll(true);$(id).classList.add('open');$(id).setAttribute('aria-hidden','false');$('scrim').classList.add('open');if(id==='aiPanel')$('aiBtn').setAttribute('aria-expanded','true')}
+function closeAll(keepScrim){['drawer','aiPanel'].forEach(i=>{$(i).classList.remove('open');$(i).setAttribute('aria-hidden','true')});$('aiBtn').setAttribute('aria-expanded','false');$('modal').classList.remove('open');$('modal').setAttribute('aria-hidden','true');if(!keepScrim)$('scrim').classList.remove('open');updateDraftDot()}
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>closeAll());
+$('scrim').onclick=()=>closeAll();
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
+
+/* Expert AI (demo answers from page facts) */
+const KB=[
+  [/fish|smell|taste/i,'It is unflavoured and dissolves clear. Reviews on the page often mention "no fishy taste".','Product page and reviews'],
+  [/take|dose|how much|scoop|serving/i,'Take one 8 g serving a day, mixed into 250 ml of water, coffee, a smoothie or oats.','How to take'],
+  [/veg|vegan|vegetarian/i,'No. It is made from fish skin and scales, so it is non-vegetarian.','Ingredients'],
+  [/coffee|hot|tea/i,'Yes. The brand suggests mixing it into coffee as well as smoothies, juices and oats.','How to take'],
+  [/result|work|week|long/i,'The brand recommends daily use for 12 weeks. Results vary from person to person. With orders of ₹5,999 or more, an assigned doctor can guide you through it.','FAQ'],
+  [/deliver|cod|cash|ship|return/i,'Enter your pincode near Add to cart to see the delivery date and whether COD is available. The returns summary is just below on the page.','Delivery and returns'],
+  [/gift|shaker|sachet|doctor|consult/i,'Gifts unlock by cart value: a shaker from ₹1,999, a flavour sachet set from ₹3,999, and a free 4-week consultation with an assigned doctor from ₹5,999.','Offers'],
+  [/pregnan|medic|allerg/i,'Please check with your doctor first. If you are allergic to fish, this product isn\'t suitable.','General guidance']
+];
+function answer(q){const k=KB.find(([re])=>re.test(q));return k?{t:k[1],s:k[2]}:{t:'In the live version the Wellbeing Expert would answer this using the full product information. (demo)',s:'Demo'}}
+function renderChat(){
+  $('msgs').innerHTML=(state.chat.length?'':`<div class="msg bot">Hi! Ask me anything about this collagen: how to take it, the taste, delivery or the gifts.</div>`)+
+    state.chat.map(m=>`<div class="msg ${m.me?'me':'bot'}">${m.t.replace(/</g,'&lt;')}${m.s?`<span class="src">From: ${m.s}${m.via?' · asked from the product box':''}</span>`:''}</div>`).join('');
+  const b=$('aiPanel').querySelector('.body');b.scrollTop=b.scrollHeight;
+}
+function ask(q,via){q=q.trim();if(!q)return;state.chat.push({me:true,t:q});const a=answer(q);state.chat.push({t:a.t,s:a.s,via});store.set('we_chat',JSON.stringify(state.chat));renderChat()}
+function updateDraftDot(){const d=$('draft').value.trim();$('aiBtn').classList.toggle('has-draft',!!d&&!$('aiPanel').classList.contains('open'))}
+$('draft').addEventListener('input',()=>{store.set('we_draft',$('draft').value);$('draftNote').textContent=$('draft').value?'Draft saved. It stays here if you close the assistant.':''});
+$('composeForm').addEventListener('submit',e=>{e.preventDefault();ask($('draft').value);$('draft').value='';store.del('we_draft');$('draftNote').textContent=''});
+$('draft').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();$('composeForm').requestSubmit()}});
+$('aiBtn').onclick=()=>{if($('aiPanel').classList.contains('open')){closeAll()}else{openPanel('aiPanel');renderChat();$('draft').focus()}};
+$('askForm').addEventListener('submit',e=>{e.preventDefault();const q=$('askInput').value;$('askInput').value='';openPanel('aiPanel');ask(q,true)});
+document.querySelectorAll('.chips button').forEach(b=>b.onclick=()=>{openPanel('aiPanel');ask(b.dataset.q,true)});
+try{state.chat=JSON.parse(store.get('we_chat')||'[]')}catch(e){state.chat=[]}
+$('draft').value=store.get('we_draft')||'';if($('draft').value)$('draftNote').textContent='Draft restored.';
+
+/* cart */
+function cartTotal(){return state.cart?PACKS[state.cart.pack-1].price:0}
+function renderCart(){
+  $('cartCount').textContent=state.cart?1:0;
+  if(!state.cart){$('cartBody').innerHTML='<div class="empty">Your cart is empty.</div>';$('cartFoot').innerHTML='';return}
+  const p=PACKS[state.cart.pack-1],tot=p.price,u=unlocked(tot),nx=nextTier(tot),up=nx&&PACKS.find(x=>x.price>=nx.at);
+  $('cartBody').innerHTML=`
+    <div class="line"><div class="thumb">🫙</div><div style="flex:1"><b>Marine Collagen Peptides, Unflavoured</b><div style="font-size:13px;color:var(--muted)">Pack of ${p.n}</div><div style="margin-top:4px"><b>${fmt(p.price)}</b> <span class="mrp">${fmt(p.mrp)}</span></div><button class="btn" style="padding:4px 0;background:none;color:var(--muted);font-size:13px;font-weight:500" id="rm">Remove</button></div></div>
+    ${u.map(t=>`<div class="line giftline"><div class="thumb">${t.icon}</div><div style="flex:1"><b>${t.name}</b><div style="font-size:13px;color:var(--muted)">${t.desc}</div><div style="margin-top:4px;color:var(--ok);font-weight:700">FREE</div></div></div>`).join('')}
+    <div class="ladder">${ladderHTML(tot,true)}</div>
+    ${nx&&up?`<div class="nudge">Want the ${nx.name.toLowerCase().replace('free ','')} too? <a href="#" id="upg">Switch to a Pack of ${up.n}</a> (+${fmt(up.price-tot)}), or add any other product worth ${fmt(nx.at-tot)}.</div>`:''}
+    <div class="sum"><span>Price (MRP)</span><span>${fmt(p.mrp)}</span></div>
+    <div class="sum"><span>Savings</span><span style="color:var(--ok)">−${fmt(p.mrp-p.price)}</span></div>
+    <div class="sum"><span>Shipping</span><span>${state.pin?'₹0 for '+state.pin+' (demo)':'Shown after pincode'}</span></div>
+    <div class="sum total"><span>Total (incl. taxes)</span><span>${fmt(tot)}</span></div>
+    <p class="fine">${state.eta?'Arrives by '+state.eta+' · COD available (demo)':'Add your pincode on the product page to see the delivery date.'}</p>
+    <div class="note"><span class="tag">I1</span><b>The cart only suggests related things.</b> Free gifts show as ₹0 lines. The nudge for the next gift offers a bigger pack of the same product, or any other item, instead of unrelated weight-loss products.</div>`;
+  $('cartFoot').innerHTML=`<button class="btn btn-primary" style="width:100%" id="toCheckout">Checkout · ${fmt(tot)}</button>`;
+  $('rm').onclick=()=>{state.cart=null;renderCart()};
+  const g=$('upg');if(g)g.onclick=e=>{e.preventDefault();state.cart.pack=up.n;state.pack=up.n;render();renderCart()};
+  $('toCheckout').onclick=()=>checkout(1);
+}
+function add(){state.cart={pack:state.pack};renderCart();openPanel('drawer')}
+$('addBtn').onclick=add;$('stAdd').onclick=add;
+$('openCart').onclick=()=>{renderCart();openPanel('drawer')};
+$('buyNow').onclick=()=>{state.cart={pack:state.pack};renderCart();checkout(1)};
+
+function stepper(n){return `<div class="steps"><span class="${n>=1?'on':''}">1. Address</span><span class="${n>=2?'on':''}">2. Payment</span><span class="${n>=3?'on':''}">3. Done</span></div>`}
+function checkout(step){
+  const p=PACKS[state.cart.pack-1],tot=p.price,u=unlocked(tot),panel=$('panel');
+  closeAll(true);$('scrim').classList.add('open');$('modal').classList.add('open');$('modal').setAttribute('aria-hidden','false');
+  const close='<button class="x" data-x aria-label="Close">×</button>';
+  if(step===1){
+    panel.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center"><b>Checkout</b>${close}</div>${stepper(1)}
+      <div class="field"><label for="ph">Mobile number</label><input id="ph" inputmode="tel" value="98XXXXXX10"></div>
+      <div class="two"><div class="field"><label for="pc">Pincode</label><input id="pc" inputmode="numeric" value="${state.pin||'560001'}"></div><div class="field"><label for="ct">City</label><input id="ct" value="Bengaluru"></div></div>
+      <div class="field"><label for="ad">Address</label><input id="ad" value="Flat 4B, Sample Residency"></div>
+      <div class="okmsg">✓ Arrives by ${state.eta||etaFor()} · Shipping ₹0 · COD available (demo)</div>
+      <button class="btn btn-primary" style="width:100%" id="next">Continue to payment · ${fmt(tot)}</button>`;
+    $('next').onclick=()=>checkout(2);
+  }else if(step===2){
+    panel.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center"><b>Payment</b>${close}</div>${stepper(2)}
+      <div class="paylist">
+        <label><input type="radio" name="pay" checked> <span><b>UPI</b><small>GPay, PhonePe, Paytm and others</small></span></label>
+        <label><input type="radio" name="pay"> <span><b>Credit or debit card</b></span></label>
+        <label><input type="radio" name="pay"> <span><b>Cash on delivery</b><small>Pay when it arrives</small></span></label>
+      </div>
+      <div class="sum total"><span>Total to pay</span><span>${fmt(tot)}</span></div>
+      <button class="btn btn-primary" style="width:100%;margin-top:12px" id="place">Place order</button>`;
+    $('place').onclick=()=>checkout(3);
+  }else{
+    const doc=tot>=5999;
+    panel.innerHTML=`${stepper(3)}<div style="text-align:center;padding:10px 0 4px"><div style="font-size:40px">✓</div><h2>Order placed (demo)</h2>
+      <p style="color:var(--muted)">Pack of ${p.n} · ${fmt(tot)} · arrives by ${state.eta||etaFor()}</p>
+      ${u.length?`<p style="font-size:14px">Free gifts included: ${u.map(t=>t.name.toLowerCase()).join(', ')}</p>`:''}
+      ${doc?`<div class="card" style="text-align:left;margin:14px 0"><h3>🩺 Your assigned doctor</h3><p>[Doctor's name] will get in touch to start your 4-week consultation. You can message the same doctor any time with questions about your routine or results.</p></div>`:''}
+      <button class="btn btn-ghost" id="back">Back to product</button></div>
+      ${doc?'<div class="note"><span class="tag">I1</span><b>A doctor after the sale.</b> The consultation uses the free consultations the brand already offers, but assigns one named doctor. If the product doesn\'t seem to work, the buyer can talk to someone they trust instead of giving up or asking for a refund.</div>':''}`;
+    $('back').onclick=()=>{state.cart=null;renderCart();closeAll()};
+  }
+  const x=panel.querySelector('[data-x]');if(x)x.onclick=()=>closeAll();
+}
+
+render();renderCart();renderChat();updateDraftDot();
+</script>
+</body>
+</html>
